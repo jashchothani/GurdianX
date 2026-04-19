@@ -254,11 +254,17 @@ git push origin feature/AmazingFeature
 <a href="https://github.com/jashchothani">
   <img src="https://avatars.githubusercontent.com/jashchothani" width="80" style="border-radius:50%"/>
 </a>
-
+<a href="https://github.com/jashchothani">
+  <img src="https://avatars.githubusercontent.com/jashchothani" width="80" style="border-radius:50%"/>
+</a>
+<a href="https://github.com/jashchothani">
+  <img src="https://avatars.githubusercontent.com/jashchothani" width="80" style="border-radius:50%"/>
+</a>
 **Jash Chothani**
 
 [![GitHub](https://img.shields.io/badge/GitHub-jashchothani-181717?style=for-the-badge&logo=github)](https://github.com/jashchothani)
-
+[![GitHub](https://img.shields.io/badge/GitHub-jashchothani-181717?style=for-the-badge&logo=github)](https://github.com/jashchothani)
+[![GitHub](https://img.shields.io/badge/GitHub-jashchothani-181717?style=for-the-badge&logo=github)](https://github.com/jashchothani)
 </div>
 
 ---
