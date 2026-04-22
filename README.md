@@ -171,19 +171,39 @@ python manage.py runserver
 ## 📁 Project Structure
 
 ```
-StudX/
+📁 StudX/
 │
-├── 📁 studx/               # Main Django project folder
-│   ├── settings.py         # Project settings
-│   ├── urls.py             # URL routing
-│   └── wsgi.py             # WSGI config
+├── 📁 static/
+│   ├── 📁 faces/                🤖 (AI face data)
+│   ├── 🎨 portal.css
+│   ├── ⚡ portal.js
+│   ├── ⚡ student.js
+│   └── 🎨 styles.css
 │
-├── 📁 templates/           # HTML templates
-├── 📁 static/              # Static files (CSS, JS, images)
+├── 📁 templates/
+│   ├── 🌐 admin_dashboard.html
+│   ├── 🌐 base.html
+│   ├── 🌐 base2.html
+│   ├── 🌐 features.html
+│   ├── 🌐 index.html
+│   ├── 🌐 login.html
+│   ├── 🌐 parent_dashboard.html
+│   ├── 🌐 register.html
+│   ├── 🌐 student_dashboard.html
+│   ├── 🌐 teacher_dashboard.html
+│   ├── 🌐 timetable.html
+│   └── 🌐 verify_otp.html
 │
-├── manage.py               # Django management script
-├── requirements.txt        # Python dependencies
-└── README.md               # You are here 📍
+├── ⚙️ .gitignore
+├── 📘 README.md
+├── 🐍 app.py
+├── 📦 requirements.txt
+├── 🗄️ studx.db
+├── 🗄️ studx.db-journal
+├── 🐍 table.py
+├── 🤖 train_faces.py
+└── 🤖 trainer.yml
+
 ```
 
 ---
@@ -230,13 +250,6 @@ git push origin feature/AmazingFeature
 
 > 💡 Found a bug? Have a suggestion? [Open an issue](https://github.com/jashchothani/StudX/issues)!
 
----
-
-## 📊 GitHub Stats
-
-<div align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=jashchothani&theme=react-dark&bg_color=20232a&hide_border=true" width="100%"/>
-</div>
 
 ---
 
