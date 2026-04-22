@@ -19,10 +19,6 @@
 <br/>
 
 <!-- Badges Row 2 -->
-[![GitHub stars](https://img.shields.io/github/stars/jashchothani/StudX?style=social)](https://github.com/jashchothani/StudX/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/jashchothani/StudX?style=social)](https://github.com/jashchothani/StudX/network/members)
-[![GitHub issues](https://img.shields.io/github/issues/jashchothani/StudX?style=flat-square&color=red)](https://github.com/jashchothani/StudX/issues)
-[![GitHub last commit](https://img.shields.io/github/last-commit/jashchothani/StudX?style=flat-square&color=purple)](https://github.com/jashchothani/StudX/commits/master)
 
 </div>
 
@@ -182,9 +178,6 @@ StudX/
 │   ├── urls.py             # URL routing
 │   └── wsgi.py             # WSGI config
 │
-├── 📁 students/            # Students app
-├── 📁 teachers/            # Teachers app
-├── 📁 staff/               # Staff app
 ├── 📁 templates/           # HTML templates
 ├── 📁 static/              # Static files (CSS, JS, images)
 │
@@ -254,16 +247,7 @@ git push origin feature/AmazingFeature
 <a href="https://github.com/jashchothani">
   <img src="https://avatars.githubusercontent.com/jashchothani" width="80" style="border-radius:50%"/>
 </a>
-<a href="https://github.com/jashchothani">
-  <img src="https://avatars.githubusercontent.com/jashchothani" width="80" style="border-radius:50%"/>
-</a>
-<a href="https://github.com/jashchothani">
-  <img src="https://avatars.githubusercontent.com/jashchothani" width="80" style="border-radius:50%"/>
-</a>
-**Jash Chothani**
 
-[![GitHub](https://img.shields.io/badge/GitHub-jashchothani-181717?style=for-the-badge&logo=github)](https://github.com/jashchothani)
-[![GitHub](https://img.shields.io/badge/GitHub-jashchothani-181717?style=for-the-badge&logo=github)](https://github.com/jashchothani)
 [![GitHub](https://img.shields.io/badge/GitHub-jashchothani-181717?style=for-the-badge&logo=github)](https://github.com/jashchothani)
 </div>
 
