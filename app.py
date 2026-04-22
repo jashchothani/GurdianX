@@ -696,5 +696,93 @@ def check_session():
         return jsonify({"status": "open", "token": session['token']})
     else:
         return jsonify({"status": "locked"})
+# =============================================================
+# FORGOT PASSWORD
+# =============================================================
+
+@app.route('/forgot-password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        email  = request.form['email'].strip()
+        portal = request.form['portal']
+
+        tbl = 'student_users' if portal == 'student' else \
+              ('parent_users' if portal == 'parent' else 'staff_users')
+
+        conn = get_db()
+        user = conn.execute(f'SELECT * FROM {tbl} WHERE email=?', (email,)).fetchone()
+
+        if not user:
+            conn.close()
+            flash('No account found with that email.', 'error')
+            return render_template('forgot_password.html')
+
+        otp    = generate_otp()
+        expiry = int(time.time()) + 600          # 10 minutes
+
+        conn.execute(f'UPDATE {tbl} SET otp=?, otp_expiry=? WHERE id=?',
+                     (otp, expiry, user['id']))
+        conn.commit()
+        conn.close()
+
+        # Reuse existing OTP email helper
+        send_otp_email(email, otp, user['name'])
+
+        # Store reset intent in session (no password info, just identity)
+        session['reset_pending'] = {
+            'id':     user['id'],
+            'portal': portal,
+            'email':  email,
+            'name':   user['name']
+        }
+
+        flash(f'Password reset OTP sent to {email}', 'info')
+        return redirect(url_for('reset_password'))
+
+    return render_template('forgot_password.html')
+
+
+@app.route('/reset-password', methods=['GET', 'POST'])
+def reset_password():
+    if 'reset_pending' not in session:
+        return redirect(url_for('forgot_password'))
+
+    if request.method == 'POST':
+        entered      = request.form['otp'].strip()
+        new_password = request.form['password'].strip()
+        confirm      = request.form['confirm_password'].strip()
+
+        if new_password != confirm:
+            flash('Passwords do not match.', 'error')
+            return render_template('reset_password.html')
+
+        if len(new_password) < 6:
+            flash('Password must be at least 6 characters.', 'error')
+            return render_template('reset_password.html')
+
+        info   = session['reset_pending']
+        portal = info['portal']
+        tbl    = 'student_users' if portal == 'student' else \
+                 ('parent_users' if portal == 'parent' else 'staff_users')
+
+        conn = get_db()
+        user = conn.execute(f'SELECT * FROM {tbl} WHERE id=?', (info['id'],)).fetchone()
+
+        if not user or user['otp'] != entered or int(time.time()) >= int(user['otp_expiry'] or 0):
+            conn.close()
+            flash('Invalid or expired OTP.', 'error')
+            return render_template('reset_password.html')
+
+        hashed = generate_password_hash(new_password)
+        conn.execute(f'UPDATE {tbl} SET password=?, otp=NULL, otp_expiry=NULL WHERE id=?',
+                     (hashed, info['id']))
+        conn.commit()
+        conn.close()
+
+        session.pop('reset_pending', None)
+        flash('Password reset successful! Please log in.', 'success')
+        return redirect(url_for('login'))
+
+    return render_template('reset_password.html')
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
