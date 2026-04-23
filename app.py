@@ -950,5 +950,21 @@ def api_email_logs():
     logs = conn.execute("SELECT student_id, email, subject, sent_at FROM email_log ORDER BY sent_at DESC LIMIT 20").fetchall()
     conn.close()
     return jsonify({'logs': [dict(l) for l in logs]})
+@app.route('/migrate')
+def migrate_db():
+    conn = get_db()
+    tables = ['student_users', 'staff_users', 'parent_users']
+    try:
+        for table in tables:
+            # Check and add otp column
+            conn.execute(f'ALTER TABLE {table} ADD COLUMN otp TEXT')
+            # Check and add otp_expiry column
+            conn.execute(f'ALTER TABLE {table} ADD COLUMN otp_expiry INTEGER')
+        conn.commit()
+        return "Migration successful!"
+    except sqlite3.OperationalError as e:
+        return f"Migration note: {e} (Columns might already exist)"
+    finally:
+        conn.close()
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=True)
