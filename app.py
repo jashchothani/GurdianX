@@ -404,7 +404,7 @@ def reset_password():
                      (generate_password_hash(new_pwd), info['id']))
         conn.commit()
         conn.close()
-         session.pop('reset_pending', None)
+        session.pop('reset_pending', None)
         session['user_id'] = user['id']
         session['name']    = user['name']
         session['portal']  = portal
