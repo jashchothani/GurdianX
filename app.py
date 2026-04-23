@@ -33,7 +33,7 @@ active_qr_tokens = {}
 # DATABASE
 # =============================================================
 def get_db():
-    conn = sqlite3.connect('studx.db', check_same_thread=False)
+   conn = sqlite3.connect('/data/studx.db', check_same_thread=False)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA journal_mode=WAL")
     return conn
@@ -404,9 +404,17 @@ def reset_password():
                      (generate_password_hash(new_pwd), info['id']))
         conn.commit()
         conn.close()
-        session.pop('reset_pending', None)
-        flash('Password reset! Please log in.', 'success')
-        return redirect(url_for('login'))
+         session.pop('reset_pending', None)
+        session['user_id'] = user['id']
+        session['name']    = user['name']
+        session['portal']  = portal
+        session['role']    = user['role'] if 'role' in user.keys() else portal
+        flash('Password reset successfully! Welcome back.', 'success')
+        if portal == 'staff':
+            return redirect(url_for('dashboard') if user['role'] == 'Admin' else url_for('teacher_dashboard'))
+        elif portal == 'parent':
+            return redirect(url_for('parent_dashboard'))
+        return redirect(url_for('student_dashboard'))
     return render_template('reset_password.html')
 
 # =============================================================
